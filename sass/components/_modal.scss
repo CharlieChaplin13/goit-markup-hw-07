@@ -8,16 +8,11 @@
     background-color: rgba(0, 0, 0, 0.2);
     opacity: 1;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.backdrop.is-hidden {
-    opacity: 0;
-    pointer-events: none;
-    /* visibility: hidden; */
-}  
-
-.backdrop.is-hidden .modal {
-    transform: translate(-50%, -50%) scale(0);
+    &.is-hidden {
+        opacity: 0;
+        pointer-events: none;
+        /* visibility: hidden; */
+    }  
 }
 
 .modal {
@@ -30,9 +25,12 @@
     height: 581px;
     border-radius: 4px;
 
-    background-color: var(--primary-bg-color); 
+    background-color: $primary-bg-color; 
     transform: translate(-50%, -50%) scale(1);
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1); 
+    .backdrop.is-hidden & {
+        transform: translate(-50%, -50%) scale(0);
+    }
 }
 
 .close-button {
@@ -45,8 +43,8 @@
 
     width: 30px;
     height: 30px;
-    color: var(--logo-text-color);
-    background-color: var(--primary-bg-color);
+    color: $logo-text-color;
+    background-color: $primary-bg-color;
     border-radius: 50%;
     border: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer; 
@@ -54,11 +52,9 @@
     transition-property: color, border-color;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.close-button:hover, 
-.close-button:focus {
-    color: var(--button-hover-color);
+    &:hover, &:focus {
+        color: $button-hover-color;
+    }
 }
 
 .modal-form {
@@ -67,55 +63,50 @@
     margin-bottom: 20px;
 }
 
-.modal-title {
+.modal-form__title {
     margin-bottom: 12px;
-    color: var(--title-text-color);
-    font-style: normal;
-    font-weight: 700;
-    font-size: 20px;
-    line-height: 1,15;
+    color: $title-text-color;
+    @include font(700, 20px, 1.15, null);
 }
-.modal-fields {
+
+.modal-form__fields {
     display: block;
     text-align: justify;
     margin-bottom: 20px;
 }
 
-.modal-field {
+.modal-form__field {
     margin-bottom: 10px;
 }
 
-.modal-label {
-    color: var(--primary-text-color);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1,17;
-    letter-spacing: 0.01em;
+.modal-form__label {
+    color: $primary-text-color;
+    @include font(400, 12px, 1.17, 0.01em);
 }
 
-.modal-input {
+.modal-form__input {
     width: 100%;
     height: 40px;
     padding: 11px 12px 11px 42px;
     border: 1px solid rgba(33, 33, 33, 0.2);
     border-radius: 4px;
-    color: var(--logo-text-color);
+    color: $logo-text-color;
     outline: transparent;
     transition-property: border-color;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
+    cursor: pointer;
+    &:focus{
+        border-color: $accent-color;
+    }
 
-.modal-input:focus,
-.modal-text:focus {
-    border-color: var(--accent-color);
 }
 
 .input-wrap {
     position: relative;
 }
 
-.input-icon {
+.input__icon {
     position: absolute;
     left: 12px;
     top: 50%;
@@ -123,13 +114,12 @@
     transition-property: fill;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    .modal-form__input:focus + & {
+        fill: $accent-color;
+    }
 }
 
-.modal-input:focus + .input-icon {
-    fill: var(--accent-color);
-}
-
-.modal-text {
+.modal-form__text {
     width: 100%;
     height: 120px;
     padding: 12px 16px;
@@ -138,15 +128,13 @@
     outline: none;
     resize: none;
     color: rgba(117, 117, 117, 0.5);
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 1,14;
-    letter-spacing: 0.01em;
-}
-
-.modal-text:hover,
-.modal-text:focus {
-    color: var(--logo-text-color);
+    @include font(400, 12px, 1.14, 0.01em);
+    &:focus {
+        border-color: $accent-color;
+    }
+    &:hover, &:focus {
+        color: $logo-text-color;
+    }
 }
 
 .checkbox-group {
@@ -158,24 +146,20 @@
 .check-text {
     display: flex;
     align-items: center;
-    color: var(--primary-text-color);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.71;
-    letter-spacing: 0.03em;
-}
-
-.check-text span {
-    width: 16px;
-    height: 15px;
-    margin-right: 7px;
-    border: 1px solid var(--logo-text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition-property: border-color, background-color, border;
-    transition-duration: 250ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    color: $primary-text-color;
+    @include font(400, 14px, 1.71, 0.03em);
+    span {
+        width: 16px;
+        height: 15px;
+        margin-right: 7px;
+        border: 1px solid $logo-text-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-property: border-color, background-color, border;
+        transition-duration: 250ms;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
 }
 
 .check-icon {
@@ -185,63 +169,36 @@
     transition-property: fill;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    .modal-check:checked + .check-text & {
+        fill: &primary-bg-color;
+    }
 }
 
 .modal-check:checked + .check-text span {
-    background-color: #2196F3;
+    background-color: $accent-color;
     border: none;
 }
 
 .modal-check:focus + .check-text span {
-    border-color: var(--accent-color);
+    border-color: $accent-color;
 }
-
-.modal-check:checked + .check-text .check-icon {
-    fill: var(--primary-bg-color);
-}
-
-/* .check-text::before {
-    content: '';
-    width: 16px;
-    height: 15px;background-position: center;
-    margin-right: 7px;
-    border: 1px solid var(--logo-text-color);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
-                0px 1px 1px rgba(0, 0, 0, 0.14), 
-                0px 2px 1px rgba(0, 0, 0, 0.2);
-}
-
-.modal-check:checked + .check-text::before {
-    background-color: #2196F3;
-    border: none;
-    background-image: url(../images/check.svg);
-    background-repeat: no-repeat;
-    
-} */
 
 .agreement-button {
     background-color: transparent;
     border: transparent;
     text-decoration: underline;
-    color: var(--accent-color);
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.71;
-    letter-spacing: 0.03em;
+    color: $accent-color;
+    @include font(400, 14px, 1.71, 0.03em);
     transition-property: color;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.agreement-button:hover,
-.agreement-button:focus {
-    color: var(--button-hover-color);
+    &:hover,
+    &:focus {
+        color: $button-hover-color;
+    }   
 }
 
 .submit-button {
     padding: 10px 52px; 
     min-width: 200px;
-    transition-property: border-color;
-    transition-duration: 250ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); 
 }
