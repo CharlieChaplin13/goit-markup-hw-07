@@ -137,13 +137,13 @@
     }
 }
 
-.checkbox-group {
+.check {
     margin-bottom: 30px;
     display: flex;
     justify-content: center;
 }
 
-.check-text {
+.check__text {
     display: flex;
     align-items: center;
     color: $primary-text-color;
@@ -162,28 +162,29 @@
     }
 }
 
-.check-icon {
+.check__icon {
     fill: transparent;
     background-repeat: no-repeat;
     background-position: center;
     transition-property: fill;
     transition-duration: 250ms;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    .modal-check:checked + .check-text & {
-        fill: &primary-bg-color;
-    }
 }
 
-.modal-check:checked + .check-text span {
+.check__input:checked + .check__text .check__icon {
+    fill: $primary-bg-color;
+}
+
+.check__input:checked + .check__text span {
     background-color: $accent-color;
     border: none;
 }
 
-.modal-check:focus + .check-text span {
+.check__input:focus + .check__text span {
     border-color: $accent-color;
 }
 
-.agreement-button {
+.check__button {
     background-color: transparent;
     border: transparent;
     text-decoration: underline;
@@ -198,7 +199,7 @@
     }   
 }
 
-.submit-button {
+.modal-form__button {
     padding: 10px 52px; 
     min-width: 200px;
 }
